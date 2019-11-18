@@ -16,9 +16,11 @@ namespace DemoPlugin3.Migrations
         {
             get
             {
-                return @"CREATE TABLE [dbo].[Test3](
-                        TestId[uniqueidentifier] NOT NULL,
-                    );";
+                return @"DROP TABLE IF EXISTS `Test`;
+                        CREATE TABLE `Test`  (
+                          `Id` char(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+                          `Version` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL
+                        ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;";
             }
         }
 
@@ -26,7 +28,7 @@ namespace DemoPlugin3.Migrations
         {
             get
             {
-                return @"DROP TABLE [dbo].[Test3]";
+                return @"DROP TABLE IF EXISTS `Test`;";
             }
         }
     }

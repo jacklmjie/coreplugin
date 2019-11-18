@@ -41,6 +41,7 @@ namespace DynamicPlugins.Infrastructure
                     _referenceLoader.LoadStreamsIntoContext(context, referenceFolderPath, assembly);
 
                     var controllerAssemblyPart = new MyAssemblyPart(assembly);
+                    AdditionalReferencePathHolder.AdditionalReferencePaths.Add(filePath);
 
                     _partManager.ApplicationParts.Add(controllerAssemblyPart);
                     PluginsLoadContexts.AddPluginContext(moduleName, context);
@@ -69,7 +70,8 @@ namespace DynamicPlugins.Infrastructure
             PluginsLoadContexts.RemovePluginContext(moduleName);
 
             var directory = new DirectoryInfo($"{AppDomain.CurrentDomain.BaseDirectory}Modules\\{moduleName}");
-            directory.Delete(true);
+            if(directory.Exists)
+                directory.Delete(true);
         }
 
         private void ResetControllActions()

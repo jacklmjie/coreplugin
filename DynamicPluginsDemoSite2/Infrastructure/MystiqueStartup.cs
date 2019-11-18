@@ -62,6 +62,7 @@ namespace DynamicPluginsDemoSite2.Infrastructure
                 {
                     o.AdditionalReferencePaths.Add(item);
                 }
+                AdditionalReferencePathHolder.AdditionalReferencePaths = o.AdditionalReferencePaths;
             });
 
             services.Configure<RazorViewEngineOptions>(o =>

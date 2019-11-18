@@ -36,29 +36,31 @@ namespace DynamicPlugins.Infrastructure
 
         public abstract string DownScripts { get; }
 
-        public void MigrateUp(System.Guid pluginId)
+        public void MigrateUp(Guid pluginId)
         {
-            _myContext.PluginMigrations.FromSql(UpScripts);
+            _myContext.Database.ExecuteSqlCommand(UpScripts);
             var model = new PluginMigration()
             {
-                PluginMigrationId = System.Guid.NewGuid(),
+                PluginMigrationId = Guid.NewGuid(),
                 PluginId = pluginId,
                 Version = Version.VersionNumber,
                 Up = UpScripts,
                 Down = DownScripts
             };
             _myContext.PluginMigrations.Add(model);
+            _myContext.SaveChanges();
         }
 
-        public void MigrateDown(System.Guid pluginId)
+        public void MigrateDown(Guid pluginId)
         {
-            _myContext.PluginMigrations.FromSql(DownScripts);
+            _myContext.Database.ExecuteSqlCommand(DownScripts);
             var model = _myContext.PluginMigrations.
                 SingleOrDefault(x => x.PluginId.Equals(pluginId) && x.Version.Equals(Version.VersionNumber));
             if (model != null)
             {
                 _myContext.PluginMigrations.Remove(model);
             }
+            _myContext.SaveChanges();
         }
     }
 }

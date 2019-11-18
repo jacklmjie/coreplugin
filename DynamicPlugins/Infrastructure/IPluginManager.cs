@@ -46,7 +46,7 @@ namespace DynamicPlugins.Infrastructure
 
         public List<Plugin> GetAllEnabledPlugins()
         {
-            return _myContext.Plugins.Where(x=>x.IsEnable).ToList();
+            return _myContext.Plugins.Where(x => x.IsEnable).ToList();
         }
 
         public Plugin GetPlugin(Guid pluginId)
@@ -68,12 +68,13 @@ namespace DynamicPlugins.Infrastructure
                     ToList();
                 foreach (var item in migrations)
                 {
-                    _myContext.PluginMigrations.FromSql(item.Down);
+                    _myContext.Database.ExecuteSqlCommand(item.Down);
                 }
                 _myContext.PluginMigrations.RemoveRange(migrations);
 
                 _myContext.Plugins.Remove(plugin);
                 _mvcModuleSetup.DeleteModule(plugin.Name);
+                _myContext.SaveChanges();
             }
         }
 
@@ -85,6 +86,7 @@ namespace DynamicPlugins.Infrastructure
                 plugin.IsEnable = true;
                 _myContext.Plugins.Update(plugin);
                 _mvcModuleSetup.EnableModule(plugin.Name);
+                _myContext.SaveChanges();
             }
         }
 
@@ -96,6 +98,7 @@ namespace DynamicPlugins.Infrastructure
                 plugin.IsEnable = false;
                 _myContext.Plugins.Update(plugin);
                 _mvcModuleSetup.DisableModule(plugin.Name);
+                _myContext.SaveChanges();
             }
         }
 
@@ -134,6 +137,7 @@ namespace DynamicPlugins.Infrastructure
             };
 
             _myContext.Plugins.Add(plugin);
+            _myContext.SaveChanges();
 
             var versions = pluginPackage.GetAllMigrations(_myContext);
 
@@ -149,6 +153,7 @@ namespace DynamicPlugins.Infrastructure
         {
             oldPlugin.Version = pluginPackage.Configuration.Version;
             _myContext.Plugins.Update(oldPlugin);
+            _myContext.SaveChanges();
 
             var migrations = pluginPackage.GetAllMigrations(_myContext);
 
@@ -166,6 +171,7 @@ namespace DynamicPlugins.Infrastructure
         {
             oldPlugin.Version = pluginPackage.Configuration.Version;
             _myContext.Plugins.Update(oldPlugin);
+            _myContext.SaveChanges();
         }
     }
 }
