@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DemoPlugin1.Controllers
 {
-    [Area("DemoPlugin3")]
-    public class Plugin3Controller : Controller
+    [Area("DemoPlugin4")]
+    public class Plugin4Controller : Controller
     {
         public IActionResult HelloWorld()
         {

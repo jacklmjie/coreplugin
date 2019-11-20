@@ -2,7 +2,7 @@
 using DynamicPlugins.Data;
 using DynamicPlugins.ViewModels;
 
-namespace DemoPlugin3.Migrations
+namespace DemoPlugin4.Migrations
 {
     public class Migration_1_0_0 : BaseMigration
     {
@@ -16,8 +16,8 @@ namespace DemoPlugin3.Migrations
         {
             get
             {
-                return @"DROP TABLE IF EXISTS `Test3`;
-                        CREATE TABLE `Test`  (
+                return @"DROP TABLE IF EXISTS `Test4`;
+                        CREATE TABLE `Test2`  (
                           `Id` char(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
                           `Version` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL
                         ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;";
@@ -28,7 +28,7 @@ namespace DemoPlugin3.Migrations
         {
             get
             {
-                return @"DROP TABLE IF EXISTS `Test3`;";
+                return @"DROP TABLE IF EXISTS `Test4`;";
             }
         }
     }

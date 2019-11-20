@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Views\Plugin3\HelloWorld.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DemoPluginModel\DemoPluginModel.csproj" />
     <ProjectReference Include="..\DynamicPlugins\DynamicPlugins.csproj" />
   </ItemGroup>
